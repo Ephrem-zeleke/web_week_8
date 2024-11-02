@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue</title>
+
+  <script src="https://unpkg.com/vue@3.2.47/dist/vue.global.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+
+      <h1>Hello vue</h1>
+
+     <p> {{ messageWithExclamationPoint }} </p>
+<!--we don't expect a user to make a change from the dev tool instead they can do it from the page
+let's add a button to add an exclamation point in the message -->
+
+      <button v-on:click="addExclamationPoint">Add exclamation point</button><br>
+<!--the way we add an event handler is different in vue, and we use the v-on function-->
+<!-- add a clear button that clear the exclamation point -->
+      <button v-on:click="clearExclamationPoint">Clear</button>
+
+
+    </div>
+
+    <script>
+      // here we will let the vue to manage all of our html elements
+      // we have to import a few library from the vue
+      const {createApp, ref, computed} = Vue
+
+      createApp({
+        setup(){
+          // we can define here things the vue app needs
+          const message = ref('Hi')
+          const numberOfExclamationPoint = ref(0)
+
+            // we can create a function that add an exclamation point in our page when the user click it
+
+          function addExclamationPoint(){
+              // since message is a constant variable, we can't assign another variable for message, but we can change
+              // the value of the message variable
+              //restrict the number of exclamation point to 10
+              if(numberOfExclamationPoint.value < 10){
+                  numberOfExclamationPoint.value++
+              }else{
+                  alert('No more exclamation point')
+              }
+
+
+          }
+            function clearExclamationPoint(){
+                numberOfExclamationPoint.value = 0
+
+            }
+          const messageWithExclamationPoint = computed(function(){
+              let computedMessage = message.value
+
+              for ( let x = 0; x < numberOfExclamationPoint.value; x++){
+                  computedMessage = computedMessage + '!'
+              }
+              return computedMessage
+
+          })
+          return{
+            message,
+            numberOfExclamationPoint,
+            messageWithExclamationPoint,
+            addExclamationPoint,
+            clearExclamationPoint
+
+          }
+        }
+      }).mount('#app')
+
+
+    </script>
+
+</body>
+</html>

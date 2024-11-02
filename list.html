@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello vue list</title>
+
+  <script src="https://unpkg.com/vue@3.2.47/dist/vue.global.js"></script>
+
+</head>
+<body>
+
+<div id="app">
+<!--  let's organize our page
+add some h1 and h2 elements and some buttons to add tasks -->
+
+  <h1>Task list</h1>
+
+  <h2>Enter new tasks </h2>
+
+  <label>Please enter your to-do task </label>
+  <input v-model="newTask"><br>
+
+<!--  add a button to add the tasks to the list-->
+  <button v-on:click="addTask">Add task</button>
+<!-- here in our html, we can use the vue library and display the array-->
+<!--we need to write a task in the input and we want that task added to the task list -->
+
+  <h2> Task list </h2>
+
+  <ul>
+    <li v-for="task in taskList">
+      {{ task }}
+    </li>
+  </ul>
+
+</div>
+
+<script>
+  const {createApp, ref} = Vue
+
+  createApp({
+    setup(){
+
+      // let's create a variable called task list
+      const taskList = ref(['water plants', 'wash floor', 'pay cellphone bill'])
+
+      // create a variable for new task
+
+      const newTask = ref('')
+
+      // we create a function called addTask that will add the input to the task list
+
+      function addTask(){
+        if(newTask.value){
+        taskList.value.push(newTask.value)
+        newTask.value = ''
+      }
+      }
+
+
+      return{
+        taskList,
+        newTask,
+        addTask
+
+
+      }
+    }
+  }).mount('#app')
+
+</script>
+
+</body>
+</html>

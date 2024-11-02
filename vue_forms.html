@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue forms</title>
+
+  <script src="https://unpkg.com/vue@3.2.47/dist/vue.global.js"></script>
+
+</head>
+<body>
+
+    <div id="app">
+
+      <label>Please enter your name </label>
+      <input v-model="name">
+
+      <p v-if="name">Thanks your name is {{ name }}</p>
+
+<!--we can also add an else statement -->
+      <p v-else>Awaiting user input </p>
+<!-- we can use the v-if vue library to hide the paragraph and it will showup if there is a name input -->
+<!--we will use the v-model to connect the name variable and the input -->
+<!--what vue help us here is, we can connect the data entered in the input with the vue
+when we change the value of the variable in the input, it will also change in the code and vice versa
+ and we call it two way binding -->
+<!--let's add a play button that clear the name input -->
+      <button v-on:click="clearName">Clear name </button>
+    </div>
+
+    <script>
+
+      const {createApp, ref} = Vue
+
+      createApp({
+        setup(){
+          const name = ref('')// leave the name variable empty
+          // create a function called clearName that clear the input
+          function clearName(){
+            name.value = ''
+          }
+
+
+
+          return{
+            name,
+            clearName
+
+          }
+        }
+      }).mount('#app')
+
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>
